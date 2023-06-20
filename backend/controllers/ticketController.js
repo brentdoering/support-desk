@@ -81,6 +81,7 @@ const createTicket = asyncHandler(async (req, res) => {
     res.status(201).json(ticket)
 })
 
+
 // @desc    Delete ticket
 // @route   DELETE /api/tickets/:id
 // @access  Private
@@ -106,7 +107,7 @@ const deleteTicket = asyncHandler(async (req, res) => {
         throw new Error('Not authorized to view this ticket.')
     }
 
-    await ticket.remove()
+    await ticket.deleteOne()
     
     res.status(200).json({ success: true })
 })
