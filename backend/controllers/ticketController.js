@@ -136,7 +136,7 @@ const updateTicket = asyncHandler(async (req, res) => {
         throw new Error('Not authorized to view this ticket.')
     }
 
-    const updatedTicket = await Ticket.findbyIdAndUpdate(req.params.id, req.body, { new: true })
+    const updatedTicket = await Ticket.findByIdAndUpdate(req.params.id, req.body, { new: true })
     
     res.status(200).json(updatedTicket)
 })
