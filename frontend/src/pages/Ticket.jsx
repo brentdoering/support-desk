@@ -6,6 +6,7 @@ import {getTicket, closeTicket} from '../features/tickets/ticketSlice'
 import {getNotes, reset as notesReset} from '../features/notes/noteSlice'
 import BackButton from '../components/BackButton'
 import Spinner from '../components/Spinner'
+import NoteItem from '../components/NoteItem'
 
 
 function Ticket() {
@@ -61,7 +62,12 @@ function Ticket() {
       <h3>Description of Issue</h3>
       <p>{ticket.description}</p>
       </div>  
+      <h2>Notes</h2>
     </header>  
+
+    {notes.map((note) => (
+      <NoteItem key={note._id} note={note} />
+    ))}
 
     {ticket.status !== 'closed' && (
       <button onClick={onTicketClose} className="btn btn-block btn-danger">Close Ticket</button>
