@@ -28,4 +28,4 @@ const noteSchema = mongoose.Schema({
 }
 )
 
-module.exports = mongoose.model('Ticket', ticketSchema)
+module.exports = mongoose.model('Note', noteSchema)
