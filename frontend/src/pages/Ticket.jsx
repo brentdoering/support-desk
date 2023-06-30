@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import {toast} from 'react-toastify'
 import Modal from 'react-modal'
+import {FaPlus} from 'react-icons/fa'
 import {getTicket, closeTicket} from '../features/tickets/ticketSlice'
 import {getNotes, reset as notesReset} from '../features/notes/noteSlice'
 import BackButton from '../components/BackButton'
@@ -57,6 +58,17 @@ function Ticket() {
     navigate('/tickets')
   }
 
+  //Create Note Submit
+  const onNoteSubmit = (e) => {
+    e.preventDefault()
+    console.log('Submit')
+    closeModal()
+  }
+
+  // Open/close modal
+  const openModal = () => setModalIsOpen(true)
+  const closeModal = () => setModalIsOpen(false)
+
   if(isLoading || notesIsLoading) {
     return <Spinner />
   }
@@ -83,7 +95,24 @@ function Ticket() {
       <p>{ticket.description}</p>
       </div>  
       <h2>Notes</h2>
-    </header>  
+    </header>
+
+    {ticket.status !== 'closed' && (
+      <button onClick={openModal} className="btn"><FaPlus /> Add Note</button>
+    )}  
+
+    <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel='Add Note'>
+      <h2>Add Note</h2>
+      <button className="btn-close" onClick={closeModal}>X</button>
+      <form onSubmit={onNoteSubmit}>
+        <div className="form-group">
+          <textarea name="noteText" id="noteText" className="form-control" placeholder="Note text" value={noteText} onChange={(e) => setNoteText(e.target.value)}></textarea>
+        </div>
+        <div className="form-group">
+          <button className="btn" type="submit">Submit</button>
+        </div>
+      </form>
+    </Modal>
 
     {notes.map((note) => (
       <NoteItem key={note._id} note={note} />
