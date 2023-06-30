@@ -20,6 +20,7 @@ function Ticket() {
     }
     
     dispatch(getTicket(ticketId))
+    // eslint-disable-next-line
   }, [isError, message, ticketId])
 
   if(isLoading) {
